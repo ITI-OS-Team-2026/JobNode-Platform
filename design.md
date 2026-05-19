@@ -1,8 +1,13 @@
+IMPORTANT:
+This design system is NOT for a generic SaaS landing page.
+Avoid default AI-generated startup layouts and Tailwind-style compositions.
+The interface must feel art-directed, enterprise-grade, technical, dense, and intentionally composed.
+
 # Design System Inspired by Sauce Labs
 
 ## 1. Visual Theme & Atmosphere
 
-Sauce Labs embodies a bold, enterprise-grade design language rooted in dark, high-contrast aesthetics with vibrant accents. The visual identity conveys precision, reliability, and cutting-edge technology through a sophisticated palette of deep charcoals and crisp whites, punctuated by an energetic emerald green. Monospace and geometric typefaces reinforce the technical foundation, while generous whitespace and minimal ornamentation create breathing room in a data-heavy environment. The design exudes confidence and professionalism, suitable for global enterprises and engineering teams who demand both performance and clarity.
+JobNode embodies a bold, enterprise-grade design language rooted in dark, high-contrast aesthetics with vibrant accents. The visual identity conveys precision, reliability, and cutting-edge technology through a sophisticated palette of deep charcoals and crisp whites, punctuated by an energetic emerald green. Monospace and geometric typefaces reinforce the technical foundation, while generous whitespace and minimal ornamentation create breathing room in a data-heavy environment. The design exudes confidence and professionalism, suitable for global enterprises and engineering teams who demand both performance and clarity.
 
 **Key Characteristics**
 - Deep, dark neutral foundation with high contrast for readability
@@ -362,3 +367,228 @@ Shadows are subtle and restrained, emphasizing functional hierarchy without over
 8. **Whitespace between major sections** should be 32px (standard), 40px (prominent), or 160px (hero breathing room)
 9. **Mobile layout is always single-column** with full-width components; tablets use 2-column grid; desktop uses 12-column grid with max-width `1440px`
 10. **Navigation links turn emerald on hover/active** state; all interactive elements have visible feedback (color change, shadow, or underline)
+
+10. Creative Direction & Layout Intelligence
+Core Design Philosophy
+
+The interface must feel intentionally art-directed rather than algorithmically assembled. Layouts should resemble a high-end enterprise product designed by a senior product design team, not a generic SaaS template generator.
+
+Every section should feel compositionally unique while remaining visually coherent within the system.
+
+The experience should communicate:
+
+technical precision
+enterprise confidence
+visual restraint
+modern infrastructure tooling
+developer-centric sophistication
+
+Avoid overly safe, over-balanced, or obviously AI-generated compositions.
+
+Anti-AI Layout Rules
+Forbidden Patterns
+
+Do NOT generate:
+
+centered hero sections with headline + paragraph + CTA stack
+generic “3-card feature grids”
+repeated card layouts between sections
+floating glassmorphism UI
+excessive gradients
+oversized empty whitespace blocks
+startup-style illustration sections
+excessive border radius
+perfect visual symmetry
+overly spaced dashboards
+repetitive alternating image/text blocks
+generic Tailwind landing page structures
+empty marketing fluff sections
+large generic stock imagery
+emoji iconography
+fake analytics widgets
+fake testimonials with avatars unless explicitly requested
+Composition Rules
+Layout Rhythm
+
+Every major section must introduce a different compositional structure.
+
+Examples:
+
+asymmetrical split layout
+offset content blocks
+overlapping panels
+editorial-style typography sections
+horizontally constrained technical content
+dense data-oriented layouts
+side-aligned headlines instead of centered headings
+
+Avoid repeating:
+
+same padding structure
+same alignment pattern
+same card structure
+same section rhythm
+Visual Density
+
+The UI should feel information-rich and intentional.
+
+Avoid:
+
+excessive whitespace
+oversized empty containers
+inflated padding
+giant isolated buttons
+sparse sections with little content
+
+Prefer:
+
+compact but breathable layouts
+tight vertical rhythm
+meaningful grouping
+layered information hierarchy
+
+The design should feel engineered, not decorative.
+
+Enterprise Product Aesthetic
+
+The visual tone should resemble:
+
+infrastructure software
+premium developer tooling
+enterprise AI platforms
+cloud engineering products
+advanced testing systems
+technical operating systems
+
+The interface should feel:
+
+operational
+reliable
+intelligent
+precise
+scalable
+
+Avoid playful startup energy.
+
+Section Behavior Rules
+Hero Sections
+
+Hero sections should:
+
+avoid centered layouts
+use strong left alignment
+include dramatic typography scale
+integrate structured UI elements
+use constrained text width
+create architectural negative space
+
+Do not use:
+
+generic browser mockups
+floating dashboards
+fake charts
+giant CTA buttons centered in space
+Cards
+
+Cards should:
+
+feel functional rather than decorative
+contain meaningful density
+avoid excessive shadows
+avoid excessive internal spacing
+prioritize structure and hierarchy over visual effects
+
+Cards are information containers, not aesthetic ornaments.
+
+Typography Behavior
+
+Typography should drive hierarchy more than color or decoration.
+
+Use:
+
+oversized headings
+tight spacing
+strong contrast
+constrained line lengths
+monospace/geometric rhythm
+
+Avoid:
+
+ultra-light typography
+vague marketing copy
+oversized paragraphs
+centered body text blocks
+Motion & Interaction Philosophy
+
+Interactions should feel:
+
+subtle
+engineered
+responsive
+intentional
+
+Avoid:
+
+bouncy animations
+excessive hover transforms
+floating motion
+playful microinteractions
+
+Preferred interactions:
+
+opacity transitions
+border color transitions
+elevation shifts
+subtle reveal animations
+restrained motion systems
+Human Imperfection Rules
+
+The design must NOT feel mathematically perfect.
+
+Introduce:
+
+slightly asymmetric compositions
+varied section pacing
+uneven visual weight
+occasional intentional tension
+editorial alignment shifts
+
+The page should feel human-directed and art-reviewed.
+
+Avoid robotic alignment repetition.
+
+Real-World Reference DNA
+
+The UI language should draw inspiration from:
+
+Sauce Labs
+Linear
+Raycast
+Stripe
+Vercel
+Retool
+
+Borrow:
+
+typography restraint from Linear
+composition confidence from Stripe
+density from Retool
+technical atmosphere from Sauce Labs
+spacing discipline from Vercel
+minimalism from Raycast
+
+Do NOT directly clone any of these products.
+
+Use them as visual behavioral references only.
+
+Generation Constraints for AI Systems
+
+When generating layouts:
+
+prioritize originality over safety
+prioritize composition over reusable grids
+prioritize hierarchy over decoration
+prioritize rhythm over symmetry
+prioritize structure over effects
+
+The output should NOT immediately look AI-generated.
