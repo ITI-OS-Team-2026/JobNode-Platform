@@ -1,0 +1,73 @@
+erDiagram
+    USERS {
+        bigint id PK
+        varchar name
+        varchar email
+        varchar password
+        enum role "admin, employer, candidate"
+    }
+
+    COMPANIES {
+        bigint id PK
+        bigint user_id FK
+        varchar company_name
+        varchar logo_path
+        varchar website
+    }
+
+    CANDIDATE_PROFILES {
+        bigint id PK
+        bigint user_id FK
+        varchar title
+        json skills
+        varchar phone
+        varchar resume_path
+    }
+
+    JOBS {
+        bigint id PK
+        bigint employer_id FK
+        varchar title
+        text description
+        varchar category
+        enum work_type
+        enum status
+        int views_count
+        int applications_count
+    }
+
+    APPLICATIONS {
+        bigint id PK
+        bigint job_id FK
+        bigint candidate_id FK
+        enum status
+    }
+
+    EMPLOYER_CANDIDATE_UNLOCKS {
+        bigint id PK
+        bigint employer_id FK
+        bigint candidate_id FK
+        varchar payment_reference
+        timestamp unlocked_at
+    }
+
+    JOB_COMMENTS {
+        bigint id PK
+        bigint job_id FK
+        bigint employer_id FK
+        text content
+    }
+
+    %% Relationships
+    USERS ||--o| COMPANIES : "has one (if employer)"
+    USERS ||--o| CANDIDATE_PROFILES : "has one (if candidate)"
+    
+    USERS ||--o{ JOBS : "posts (as employer)"
+    JOBS ||--o{ APPLICATIONS : "receives"
+    USERS ||--o{ APPLICATIONS : "submits (as candidate)"
+    
+    USERS ||--o{ EMPLOYER_CANDIDATE_UNLOCKS : "pays for (as employer)"
+    USERS ||--o{ EMPLOYER_CANDIDATE_UNLOCKS : "is unlocked (as candidate)"
+    
+    JOBS ||--o{ JOB_COMMENTS : "has"
+    USERS ||--o{ JOB_COMMENTS : "writes (as employer)"
