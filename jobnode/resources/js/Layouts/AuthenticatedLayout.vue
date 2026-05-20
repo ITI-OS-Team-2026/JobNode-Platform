@@ -33,12 +33,35 @@ const showingNavigationDropdown = ref(false);
                             <div
                                 class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex"
                             >
-                                <NavLink
-                                    :href="route('dashboard')"
-                                    :active="route().current('dashboard')"
-                                >
-                                    Dashboard
-                                </NavLink>
+                                <template v-if="$page.props.auth.user.role === 'candidate'">
+                                    <NavLink :href="route('candidate.dashboard')" :active="route().current('candidate.dashboard')">
+                                        Dashboard
+                                    </NavLink>
+                                    <NavLink :href="route('candidate.profile')" :active="route().current('candidate.profile')">
+                                        My Profile
+                                    </NavLink>
+                                    <NavLink :href="route('candidate.applications')" :active="route().current('candidate.applications')">
+                                        Applications
+                                    </NavLink>
+                                </template>
+
+                                <template v-else-if="$page.props.auth.user.role === 'employer'">
+                                    <NavLink :href="route('employer.dashboard')" :active="route().current('employer.dashboard')">
+                                        Dashboard
+                                    </NavLink>
+                                    <NavLink :href="route('employer.jobs.index')" :active="route().current('employer.jobs.*')">
+                                        My Listings
+                                    </NavLink>
+                                </template>
+
+                                <template v-else-if="$page.props.auth.user.role === 'admin'">
+                                    <NavLink :href="route('admin.dashboard')" :active="route().current('admin.dashboard')">
+                                        Dashboard
+                                    </NavLink>
+                                    <NavLink :href="route('admin.jobs.pending')" :active="route().current('admin.jobs.*')">
+                                        Moderation Queue
+                                    </NavLink>
+                                </template>
                             </div>
                         </div>
 
@@ -140,12 +163,35 @@ const showingNavigationDropdown = ref(false);
                     class="sm:hidden"
                 >
                     <div class="space-y-1 pb-3 pt-2">
-                        <ResponsiveNavLink
-                            :href="route('dashboard')"
-                            :active="route().current('dashboard')"
-                        >
-                            Dashboard
-                        </ResponsiveNavLink>
+                        <template v-if="$page.props.auth.user.role === 'candidate'">
+                            <ResponsiveNavLink :href="route('candidate.dashboard')" :active="route().current('candidate.dashboard')">
+                                Dashboard
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink :href="route('candidate.profile')" :active="route().current('candidate.profile')">
+                                My Profile
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink :href="route('candidate.applications')" :active="route().current('candidate.applications')">
+                                Applications
+                            </ResponsiveNavLink>
+                        </template>
+
+                        <template v-else-if="$page.props.auth.user.role === 'employer'">
+                            <ResponsiveNavLink :href="route('employer.dashboard')" :active="route().current('employer.dashboard')">
+                                Dashboard
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink :href="route('employer.jobs.index')" :active="route().current('employer.jobs.*')">
+                                My Listings
+                            </ResponsiveNavLink>
+                        </template>
+
+                        <template v-else-if="$page.props.auth.user.role === 'admin'">
+                            <ResponsiveNavLink :href="route('admin.dashboard')" :active="route().current('admin.dashboard')">
+                                Dashboard
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink :href="route('admin.jobs.pending')" :active="route().current('admin.jobs.*')">
+                                Moderation Queue
+                            </ResponsiveNavLink>
+                        </template>
                     </div>
 
                     <!-- Responsive Settings Options -->
