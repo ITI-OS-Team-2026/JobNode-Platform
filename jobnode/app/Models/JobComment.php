@@ -1,26 +1,21 @@
 <?php
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+namespace App\Models;
 
-return new class extends Migration
+use Illuminate\Database\Eloquent\Model;
+
+class JobComment extends Model
 {
-    public function up(): void
+    protected $fillable = [
+        'job_id', 'employer_id', 'content'
+    ];
+
+    public function job()
     {
-        Schema::create('job_comments', function (Blueprint $table) {
-            $table->id();
-            // Pointing to our custom job_listings table
-            $table->foreignId('job_id')->constrained('job_listings')->cascadeOnDelete();
-            // The employer writing the comment
-            $table->foreignId('employer_id')->constrained('users')->cascadeOnDelete();
-            
-            $table->text('content');
-            $table->timestamps();
-        });
+        return $this->belongsTo(Job::class);
     }
 
-    public function down(): void
+    public function employer()
     {
-        Schema::dropIfExists('job_comments');
+        return $this->belongsTo(User::class, 'employer_id');
     }
-};
+}

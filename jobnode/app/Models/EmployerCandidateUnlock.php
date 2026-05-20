@@ -1,29 +1,28 @@
 <?php
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+namespace App\Models;
 
-return new class extends Migration
+use Illuminate\Database\Eloquent\Model;
+
+class EmployerCandidateUnlock extends Model
 {
-    public function up(): void
-    {
-        Schema::create('employer_candidate_unlocks', function (Blueprint $table) {
-            $table->id();
-            // Both foreign keys point to the users table
-            $table->foreignId('employer_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('candidate_id')->constrained('users')->cascadeOnDelete();
-            
-            $table->string('payment_reference')->comment('Stripe/PayPal transaction ID');
-            $table->timestamp('unlocked_at')->useCurrent();
-            $table->timestamps();
+    protected $fillable = [
+        'employer_id', 'candidate_id', 'payment_reference', 'unlocked_at'
+    ];
 
-            // Prevent double-charging an employer for the same candidate
-            $table->unique(['employer_id', 'candidate_id']);
-        });
+    protected function casts(): array
+    {
+        return [
+            'unlocked_at' => 'datetime',
+        ];
     }
 
-    public function down(): void
+    public function employer()
     {
-        Schema::dropIfExists('employer_candidate_unlocks');
+        return $this->belongsTo(User::class, 'employer_id');
     }
-};
+
+    public function candidate()
+    {
+        return $this->belongsTo(User::class, 'candidate_id');
+    }
+}
