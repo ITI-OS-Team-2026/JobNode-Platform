@@ -46,11 +46,13 @@ Route::middleware(['auth', 'verified', 'role:employer'])
     ->group(function () {
         Route::inertia('/dashboard', 'Employer/Dashboard')->name('dashboard');
         Route::inertia('/company', 'Employer/CompanyProfile')->name('company.profile');
-        Route::inertia('/jobs', 'Employer/Jobs/Index')->name('jobs.index');
-        Route::inertia('/jobs/create', 'Employer/Jobs/Create')->name('jobs.create');
-        // We will add dynamic parameters for editing/triage later when we build controllers
+        
+        // Remove the inertia placeholders and add the actual controller routes:
+        Route::inertia('/jobs', 'Employer/Jobs/Index')->name('jobs.index'); // We will update this in commit 4.2
+        Route::get('/jobs/create', [\App\Http\Controllers\JobController::class, 'create'])->name('jobs.create');
+        Route::post('/jobs', [\App\Http\Controllers\JobController::class, 'store'])->name('jobs.store');
     });
-
+    
 /*
 |--------------------------------------------------------------------------
 | Admin Routes
