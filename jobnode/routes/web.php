@@ -47,10 +47,12 @@ Route::middleware(['auth', 'verified', 'role:employer'])
         Route::inertia('/dashboard', 'Employer/Dashboard')->name('dashboard');
         Route::inertia('/company', 'Employer/CompanyProfile')->name('company.profile');
         
-        // Remove the inertia placeholders and add the actual controller routes:
-        Route::inertia('/jobs', 'Employer/Jobs/Index')->name('jobs.index'); // We will update this in commit 4.2
+        // Job Management Routes
+        Route::get('/jobs', [\App\Http\Controllers\JobController::class, 'index'])->name('jobs.index');
         Route::get('/jobs/create', [\App\Http\Controllers\JobController::class, 'create'])->name('jobs.create');
         Route::post('/jobs', [\App\Http\Controllers\JobController::class, 'store'])->name('jobs.store');
+        Route::get('/jobs/{job}/edit', [\App\Http\Controllers\JobController::class, 'edit'])->name('jobs.edit');
+        Route::put('/jobs/{job}', [\App\Http\Controllers\JobController::class, 'update'])->name('jobs.update');
     });
     
 /*
