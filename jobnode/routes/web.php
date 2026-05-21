@@ -53,6 +53,7 @@ Route::middleware(['auth', 'verified', 'role:employer'])
         Route::post('/jobs', [\App\Http\Controllers\JobController::class, 'store'])->name('jobs.store');
         Route::get('/jobs/{job}/edit', [\App\Http\Controllers\JobController::class, 'edit'])->name('jobs.edit');
         Route::put('/jobs/{job}', [\App\Http\Controllers\JobController::class, 'update'])->name('jobs.update');
+        Route::post('/jobs/{job}/comments', [\App\Http\Controllers\JobCommentController::class, 'store'])->name('jobs.comments.store');
     });
     
 /*

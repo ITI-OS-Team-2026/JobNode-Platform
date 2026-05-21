@@ -74,7 +74,7 @@ class JobController extends Controller
         ]);
     }
 
-    /**
+        /**
      * Show the form for editing the specified job.
      */
     public function edit(Request $request, Job $job)
@@ -82,6 +82,11 @@ class JobController extends Controller
         if ($job->employer_id !== $request->user()->id) {
             abort(403, 'Unauthorized action.');
         }
+
+        // Eager load the comments, ordered by newest first
+        $job->load(['comments' => function ($query) {
+            $query->latest();
+        }]);
 
         return Inertia::render('Employer/Jobs/Edit', [
             'job' => $job
