@@ -46,11 +46,16 @@ Route::middleware(['auth', 'verified', 'role:employer'])
     ->group(function () {
         Route::inertia('/dashboard', 'Employer/Dashboard')->name('dashboard');
         Route::inertia('/company', 'Employer/CompanyProfile')->name('company.profile');
-        Route::inertia('/jobs', 'Employer/Jobs/Index')->name('jobs.index');
-        Route::inertia('/jobs/create', 'Employer/Jobs/Create')->name('jobs.create');
-        // We will add dynamic parameters for editing/triage later when we build controllers
+        
+        // Job Management Routes
+        Route::get('/jobs', [\App\Http\Controllers\JobController::class, 'index'])->name('jobs.index');
+        Route::get('/jobs/create', [\App\Http\Controllers\JobController::class, 'create'])->name('jobs.create');
+        Route::post('/jobs', [\App\Http\Controllers\JobController::class, 'store'])->name('jobs.store');
+        Route::get('/jobs/{job}/edit', [\App\Http\Controllers\JobController::class, 'edit'])->name('jobs.edit');
+        Route::put('/jobs/{job}', [\App\Http\Controllers\JobController::class, 'update'])->name('jobs.update');
+        Route::post('/jobs/{job}/comments', [\App\Http\Controllers\JobCommentController::class, 'store'])->name('jobs.comments.store');
     });
-
+    
 /*
 |--------------------------------------------------------------------------
 | Admin Routes
