@@ -9,17 +9,11 @@ use Inertia\Inertia;
 | Public Routes (Guest Access)
 |--------------------------------------------------------------------------
 */
-Route::get('/', function () {
-    return Inertia::render('Welcome');
-})->name('home');
+Route::inertia('/', 'Welcome')->name('home');
 
-Route::get('/jobs', function () {
-    return Inertia::render('Jobs/Index');
-})->name('jobs.index');
+Route::get('/jobs', [\App\Http\Controllers\PublicJobController::class, 'index'])->name('jobs.index');
 
-Route::get('/jobs/{job}', function () {
-    return Inertia::render('Jobs/Show');
-})->name('jobs.show');
+Route::inertia('/jobs/{job}', 'Jobs/Show')->name('jobs.show');
 
 /*
 |--------------------------------------------------------------------------
