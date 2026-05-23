@@ -27,6 +27,9 @@ Route::middleware(['auth', 'verified', 'role:candidate'])
         Route::inertia('/dashboard', 'Candidate/Dashboard')->name('dashboard');
         Route::inertia('/profile', 'Candidate/Profile')->name('profile');
         Route::inertia('/applications', 'Candidate/Applications')->name('applications');
+        
+        // Add this new route for handling submissions:
+        Route::post('/jobs/{job}/apply', [\App\Http\Controllers\ApplicationController::class, 'store'])->name('jobs.apply');
     });
 
 /*

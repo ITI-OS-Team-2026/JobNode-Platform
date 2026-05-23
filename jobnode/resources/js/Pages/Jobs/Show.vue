@@ -100,12 +100,37 @@ const formatDateTime = (dateString) => {
                         </template>
                         
                         <template v-else>
-                            <Link :href="route('candidate.applications')" method="get" as="div" class="w-full">
-                                <PrimaryButton type="button" class="w-full">
+                            <template v-if="$page.props.auth.user && $page.props.auth.user.role === 'candidate'">
+                                <Link 
+                                    :href="route('candidate.jobs.apply', job.id)" 
+                                    method="post" 
+                                    as="button" 
+                                    type="button" 
+                                    preserve-scroll
+                                    class="w-full inline-flex items-center justify-center px-8 py-3 bg-jobnode-emerald rounded-4xl font-body text-[16px] text-black font-normal transition-all hover:bg-jobnode-emeraldHover hover:shadow-l2 active:scale-98"
+                                >
                                     Apply For This Role
-                                </PrimaryButton>
-                            </Link>
-                            <p class="text-xs text-neutral-stone mt-3">Requires a candidate profile setup.</p>
+                                </Link>
+                                <p class="text-xs text-neutral-stone mt-3">Submitting counts toward your 12-role platform limit.</p>
+                            </template>
+
+                            <template v-else-if="!$page.props.auth.user">
+                                <Link :href="route('register')" class="w-full block">
+                                    <PrimaryButton type="button" class="w-full">
+                                        Sign Up to Apply
+                                    </PrimaryButton>
+                                </Link>
+                                <p class="text-xs text-neutral-stone mt-3">
+                                    Already have an account? 
+                                    <Link :href="route('login')" class="text-jobnode-sky hover:underline">Log In</Link>
+                                </p>
+                            </template>
+
+                            <template v-else>
+                                <div class="p-4 bg-neutral-100 border border-neutral-light rounded-xl text-neutral-stone text-sm">
+                                    Viewing listing as an {{ $page.props.auth.user.role }}.
+                                </div>
+                            </template>
                         </template>
                     </div>
 
