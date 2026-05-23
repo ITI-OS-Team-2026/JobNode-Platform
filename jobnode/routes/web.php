@@ -9,17 +9,11 @@ use Inertia\Inertia;
 | Public Routes (Guest Access)
 |--------------------------------------------------------------------------
 */
-Route::get('/', function () {
-    return Inertia::render('Welcome');
-})->name('home');
+Route::inertia('/', 'Welcome')->name('home');
 
-Route::get('/jobs', function () {
-    return Inertia::render('Jobs/Index');
-})->name('jobs.index');
+Route::get('/jobs', [\App\Http\Controllers\PublicJobController::class, 'index'])->name('jobs.index');
 
-Route::get('/jobs/{job}', function () {
-    return Inertia::render('Jobs/Show');
-})->name('jobs.show');
+Route::get('/jobs/{job}', [\App\Http\Controllers\PublicJobController::class, 'show'])->name('jobs.show');
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +27,9 @@ Route::middleware(['auth', 'verified', 'role:candidate'])
         Route::inertia('/dashboard', 'Candidate/Dashboard')->name('dashboard');
         Route::inertia('/profile', 'Candidate/Profile')->name('profile');
         Route::inertia('/applications', 'Candidate/Applications')->name('applications');
+        
+        // Add this new route for handling submissions:
+        Route::post('/jobs/{job}/apply', [\App\Http\Controllers\ApplicationController::class, 'store'])->name('jobs.apply');
     });
 
 /*
