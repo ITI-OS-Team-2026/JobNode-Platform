@@ -48,4 +48,35 @@ class PublicJobController extends Controller
             'filters' => $request->only(['search', 'category', 'work_type', 'location']),
         ]);
     }
+
+    /**
+     * Display the specified public job listing.
+     */
+    public function show(Job $job)
+    {
+        // Only allow viewing if the job is approved or if the owner is previewing it
+        if ($job->status !== 'approved' && (!auth()->check() || auth()->id() !== $job->employer_id)) {
+            // Note: If you want to allow admins to preview it, you can expand this logic later
+            if (!auth()->user() || auth()->user()->role !== 'admin') {
+                abort(404);
+            }
+        }
+
+        // Increment the engagement metric cleanly
+        $job->increment('views_count');
+
+        // Eager load relationships
+        $job->load(['employer.company', 'comments' => function ($query) {
+            $query->latest();
+        }]);
+
+        return Inertia::render('Jobs/Show', [
+            'job' => $job,
+            // Pass whether the current user has already applied to this job
+            'hasApplied' => auth()->user() 
+                ? \App\Models\Application::where('job_id', $job->id)->where('candidate_id', auth()->id())->exists()
+                : false,
+        ]);
+    }
 }
+

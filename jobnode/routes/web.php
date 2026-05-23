@@ -13,7 +13,7 @@ Route::inertia('/', 'Welcome')->name('home');
 
 Route::get('/jobs', [\App\Http\Controllers\PublicJobController::class, 'index'])->name('jobs.index');
 
-Route::inertia('/jobs/{job}', 'Jobs/Show')->name('jobs.show');
+Route::get('/jobs/{job}', [\App\Http\Controllers\PublicJobController::class, 'show'])->name('jobs.show');
 
 /*
 |--------------------------------------------------------------------------
