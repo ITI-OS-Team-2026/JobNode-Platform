@@ -18,4 +18,14 @@ class Application extends Model
     {
         return $this->belongsTo(User::class, 'candidate_id');
     }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function unlocks()
+    {
+        return $this->hasMany(EmployerCandidateUnlock::class);
+    }
 }

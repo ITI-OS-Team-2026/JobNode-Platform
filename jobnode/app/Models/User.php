@@ -80,4 +80,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(EmployerCandidateUnlock::class, 'employer_id');
     }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class, 'employer_id');
+    }
 }
