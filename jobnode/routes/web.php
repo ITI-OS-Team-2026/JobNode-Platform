@@ -56,6 +56,14 @@ Route::middleware(['auth', 'verified', 'role:employer'])
         Route::get('/jobs/{job}/edit', [\App\Http\Controllers\JobController::class, 'edit'])->name('jobs.edit');
         Route::put('/jobs/{job}', [\App\Http\Controllers\JobController::class, 'update'])->name('jobs.update');
         Route::post('/jobs/{job}/comments', [\App\Http\Controllers\JobCommentController::class, 'store'])->name('jobs.comments.store');
+        
+        // Application Management Routes
+        Route::get('/applications', [\App\Http\Controllers\EmployerApplicationController::class, 'index'])->name('applications.index');
+        Route::get('/applications/{application}', [\App\Http\Controllers\EmployerApplicationController::class, 'show'])->name('applications.show');
+        // Payments for unlocking applications
+        Route::post('/applications/{application}/payments', [\App\Http\Controllers\PaymentController::class, 'store'])->name('applications.payments.store');
+        // Resume download for unlocked candidates
+        Route::get('/applications/{application}/resume/download', [\App\Http\Controllers\EmployerResumeController::class, 'download'])->name('applications.resume.download');
     });
     
 /*
@@ -83,3 +91,8 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+// Kashier endpoints (webhook + redirects)
+Route::post('/payments/kashier/webhook', [\App\Http\Controllers\KashierController::class, 'webhook'])->name('payments.kashier.webhook');
+Route::get('/payments/kashier/success', [\App\Http\Controllers\KashierController::class, 'success'])->name('payments.kashier.success');
+Route::get('/payments/kashier/failure', [\App\Http\Controllers\KashierController::class, 'failure'])->name('payments.kashier.failure');
