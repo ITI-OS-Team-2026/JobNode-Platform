@@ -57,9 +57,9 @@ const completenessStatusClass = computed(() => {
 const getStatusColor = (status) => {
     switch (status) {
         case "applied":
-            return "bg-blue-100 text-blue-800";
+            return "bg-teal-100 text-teal-800";
         case "reviewed":
-            return "bg-purple-100 text-purple-800";
+            return "bg-emerald-100 text-emerald-800";
         case "shortlisted":
             return "bg-green-100 text-green-800";
         case "rejected":
@@ -176,7 +176,7 @@ async function startUnlock() {
                 </h2>
                 <Link
                     :href="route('employer.applications.index')"
-                    class="text-indigo-600 hover:text-indigo-800 font-semibold transition-colors"
+                    class="text-emerald-600 hover:text-emerald-800 font-semibold transition-colors"
                 >
                     Back to Applications
                 </Link>
@@ -290,7 +290,7 @@ async function startUnlock() {
                                             <p class="text-gray-900 font-bold mb-1">{{ profile.resume_original_filename || "Resume.pdf" }}</p>
                                             <p v-if="profile.resume_uploaded_at" class="text-xs text-gray-500 font-medium">Uploaded: {{ new Date(profile.resume_uploaded_at).toLocaleDateString() }}</p>
                                         </div>
-                                        <a v-if="resumeDownloadUrl" :href="resumeDownloadUrl" class="inline-flex items-center justify-center px-4 py-2 bg-white border-2 border-indigo-600 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-50 hover:border-indigo-700 transition-colors shadow-sm">
+                                        <a v-if="resumeDownloadUrl" :href="resumeDownloadUrl" class="inline-flex items-center justify-center px-4 py-2 bg-white border-2 border-emerald-600 text-emerald-700 rounded-lg text-sm font-bold hover:bg-emerald-50 hover:border-emerald-700 transition-colors shadow-sm">
                                             Download Resume
                                         </a>
                                     </div>
@@ -310,7 +310,7 @@ async function startUnlock() {
                         </div>
 
                         <!-- Payment / Unlock Card -->
-                        <div v-if="!isUnlocked" class="bg-gradient-to-br from-indigo-50 to-white shadow-sm sm:rounded-2xl border-2 border-indigo-100 overflow-hidden">
+                        <div v-if="!isUnlocked" class="bg-gradient-to-br from-emerald-50 to-white shadow-sm sm:rounded-2xl border-2 border-emerald-100 overflow-hidden">
                             <div class="p-8">
                                 <div class="flex flex-col md:flex-row gap-8 items-center justify-between">
                                     <div class="flex-1">
@@ -321,19 +321,19 @@ async function startUnlock() {
                                         
                                         <ul class="space-y-3">
                                             <li class="flex items-center gap-3 text-gray-800 font-medium">
-                                                <CheckCircleIcon class="w-5 h-5 text-indigo-600" />
+                                                <CheckCircleIcon class="w-5 h-5 text-emerald-600" />
                                                 <span>Candidate Email Address</span>
                                             </li>
                                             <li class="flex items-center gap-3 text-gray-800 font-medium">
-                                                <CheckCircleIcon class="w-5 h-5 text-indigo-600" />
+                                                <CheckCircleIcon class="w-5 h-5 text-emerald-600" />
                                                 <span>Candidate Phone Number</span>
                                             </li>
                                             <li class="flex items-center gap-3 text-gray-800 font-medium">
-                                                <CheckCircleIcon class="w-5 h-5 text-indigo-600" />
+                                                <CheckCircleIcon class="w-5 h-5 text-emerald-600" />
                                                 <span>Full Resume Download</span>
                                             </li>
                                             <li class="flex items-center gap-3 text-gray-800 font-medium">
-                                                <CheckCircleIcon class="w-5 h-5 text-indigo-600" />
+                                                <CheckCircleIcon class="w-5 h-5 text-emerald-600" />
                                                 <span>Permanent Access</span>
                                             </li>
                                         </ul>
@@ -345,7 +345,7 @@ async function startUnlock() {
                                         
                                         <button 
                                             @click="isModalOpen = true" 
-                                            class="w-full py-3.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg rounded-xl shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all transform hover:-translate-y-0.5"
+                                            class="w-full py-3.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-lg rounded-xl shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-all transform hover:-translate-y-0.5"
                                         >
                                             Unlock Access
                                         </button>
@@ -427,7 +427,7 @@ async function startUnlock() {
                                 <div>
                                     <p class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-2">Skills</p>
                                     <div v-if="profile.skills && profile.skills.length > 0" class="flex flex-wrap gap-2">
-                                        <span v-for="(skill, index) in profile.skills" :key="index" class="inline-flex px-2.5 py-1 bg-indigo-50 border border-indigo-100 text-indigo-700 rounded-md text-xs font-bold uppercase tracking-wide">
+                                        <span v-for="(skill, index) in profile.skills" :key="index" class="inline-flex px-2.5 py-1 bg-emerald-50 border border-emerald-100 text-emerald-700 rounded-md text-xs font-bold uppercase tracking-wide">
                                             {{ skill }}
                                         </span>
                                     </div>
@@ -438,7 +438,7 @@ async function startUnlock() {
                                 <div>
                                     <p class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-1">LinkedIn Profile</p>
                                     <div v-if="profile.linkedin_url">
-                                        <a :href="profile.linkedin_url" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 font-medium break-all underline decoration-indigo-300 underline-offset-2">
+                                        <a :href="profile.linkedin_url" target="_blank" rel="noopener noreferrer" class="text-emerald-600 hover:text-emerald-800 font-medium break-all underline decoration-emerald-300 underline-offset-2">
                                             {{ profile.linkedin_url }}
                                         </a>
                                     </div>
@@ -469,8 +469,8 @@ async function startUnlock() {
                     </div>
                     
                     <div class="sm:flex sm:items-start">
-                        <div class="mx-auto flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-indigo-50 border-4 border-indigo-100 sm:mx-0 sm:h-12 sm:w-12">
-                            <LockClosedIcon class="h-6 w-6 text-indigo-600" aria-hidden="true" />
+                        <div class="mx-auto flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-emerald-50 border-4 border-emerald-100 sm:mx-0 sm:h-12 sm:w-12">
+                            <LockClosedIcon class="h-6 w-6 text-emerald-600" aria-hidden="true" />
                         </div>
                         <div class="mt-4 text-center sm:mt-0 sm:ml-6 sm:text-left w-full">
                             <h3 class="text-xl leading-6 font-bold text-gray-900" id="modal-title">
@@ -504,7 +504,7 @@ async function startUnlock() {
                         </div>
                     </div>
                     <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse gap-3">
-                        <button type="button" @click="startUnlock" :disabled="loading" class="w-full inline-flex justify-center rounded-xl border border-transparent shadow-sm px-5 py-3 bg-indigo-600 text-base font-bold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:w-auto sm:text-sm disabled:opacity-75 transition-colors flex items-center justify-center min-w-[200px]">
+                        <button type="button" @click="startUnlock" :disabled="loading" class="w-full inline-flex justify-center rounded-xl border border-transparent shadow-sm px-5 py-3 bg-emerald-600 text-base font-bold text-white hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 sm:w-auto sm:text-sm disabled:opacity-75 transition-colors flex items-center justify-center min-w-[200px]">
                             <svg v-if="loading" class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -512,7 +512,7 @@ async function startUnlock() {
                             <span v-if="!loading">Continue to Payment</span>
                             <span v-else>Creating Secure Checkout...</span>
                         </button>
-                        <button type="button" @click="isModalOpen = false" :disabled="loading" class="mt-3 w-full inline-flex justify-center rounded-xl border border-gray-300 shadow-sm px-5 py-3 bg-white text-base font-bold text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm disabled:opacity-50 transition-colors">
+                        <button type="button" @click="isModalOpen = false" :disabled="loading" class="mt-3 w-full inline-flex justify-center rounded-xl border border-gray-300 shadow-sm px-5 py-3 bg-white text-base font-bold text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 sm:mt-0 sm:w-auto sm:text-sm disabled:opacity-50 transition-colors">
                             Cancel
                         </button>
                     </div>

@@ -159,7 +159,7 @@ const isEmptyState = computed(() => {
                         <!-- Views -->
                         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 group hover:shadow-md transition duration-300">
                             <div class="flex justify-between items-start mb-2">
-                                <div class="bg-blue-50 text-blue-600 p-2 rounded-lg group-hover:scale-110 transition-transform"><EyeIcon class="w-5 h-5"/></div>
+                                <div class="bg-teal-50 text-teal-600 p-2 rounded-lg group-hover:scale-110 transition-transform"><EyeIcon class="w-5 h-5"/></div>
                                 <div class="flex items-center space-x-1 text-sm font-medium" :class="getTrend('total_views').type === 'up' ? 'text-jobnode-emerald' : 'text-red-500'">
                                     <span>{{ getTrend('total_views').value }}</span>
                                     <ArrowTrendingUpIcon v-if="getTrend('total_views').type === 'up'" class="w-3 h-3" />
@@ -185,7 +185,7 @@ const isEmptyState = computed(() => {
                         <!-- Conversion Rate -->
                         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 group hover:shadow-md transition duration-300">
                             <div class="flex justify-between items-start mb-2">
-                                <div class="bg-purple-50 text-purple-600 p-2 rounded-lg group-hover:scale-110 transition-transform"><ChartBarIcon class="w-5 h-5"/></div>
+                                <div class="bg-emerald-50 text-emerald-600 p-2 rounded-lg group-hover:scale-110 transition-transform"><ChartBarIcon class="w-5 h-5"/></div>
                                 <div class="flex items-center space-x-1 text-sm font-medium" :class="getTrend('conversion_rate').type === 'up' ? 'text-jobnode-emerald' : 'text-red-500'">
                                     <span>{{ getTrend('conversion_rate').value }}</span>
                                     <ArrowTrendingUpIcon v-if="getTrend('conversion_rate').type === 'up'" class="w-3 h-3" />
@@ -211,7 +211,7 @@ const isEmptyState = computed(() => {
                         <!-- Revenue -->
                         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 group hover:shadow-md transition duration-300">
                             <div class="flex justify-between items-start mb-2">
-                                <div class="bg-indigo-50 text-indigo-600 p-2 rounded-lg group-hover:scale-110 transition-transform"><CurrencyDollarIcon class="w-5 h-5"/></div>
+                                <div class="bg-teal-50 text-teal-600 p-2 rounded-lg group-hover:scale-110 transition-transform"><CurrencyDollarIcon class="w-5 h-5"/></div>
                                 <div class="flex items-center space-x-1 text-sm font-medium" :class="getTrend('total_revenue').type === 'up' ? 'text-jobnode-emerald' : 'text-red-500'">
                                     <span>{{ getTrend('total_revenue').value }}</span>
                                     <ArrowTrendingUpIcon v-if="getTrend('total_revenue').type === 'up'" class="w-3 h-3" />
@@ -271,7 +271,7 @@ const isEmptyState = computed(() => {
                         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                             <div class="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
                                 <h3 class="text-lg font-semibold text-gray-900">Top Performing Jobs</h3>
-                                <Link :href="route('employer.jobs.index')" class="text-sm font-medium text-indigo-600 hover:text-indigo-800 transition-colors">
+                                <Link :href="route('employer.jobs.index')" class="text-sm font-medium text-emerald-600 hover:text-emerald-800 transition-colors">
                                     View all jobs
                                 </Link>
                             </div>
@@ -321,9 +321,9 @@ const isEmptyState = computed(() => {
                                                     <div>
                                                         <span class="h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white"
                                                             :class="{
-                                                                'bg-blue-50 text-blue-600': item.type === 'application',
+                                                                'bg-teal-50 text-teal-600': item.type === 'application',
                                                                 'bg-amber-50 text-amber-600': item.type === 'unlock',
-                                                                'bg-indigo-50 text-indigo-600': item.type === 'payment'
+                                                                'bg-emerald-50 text-emerald-600': item.type === 'payment'
                                                             }">
                                                             <UserCircleIcon v-if="item.type === 'application'" class="w-5 h-5" />
                                                             <KeyIcon v-else-if="item.type === 'unlock'" class="w-5 h-5" />
@@ -355,7 +355,7 @@ const isEmptyState = computed(() => {
                 <template v-else>
                     <div class="bg-white sm:rounded-2xl shadow-sm border border-gray-100 p-12 text-center relative overflow-hidden">
                         <div class="absolute top-0 right-0 -mt-16 -mr-16 bg-jobnode-emerald/5 rounded-full w-64 h-64 blur-3xl"></div>
-                        <div class="absolute bottom-0 left-0 -mb-16 -ml-16 bg-blue-50 rounded-full w-64 h-64 blur-3xl"></div>
+                        <div class="absolute bottom-0 left-0 -mb-16 -ml-16 bg-emerald-50 rounded-full w-64 h-64 blur-3xl"></div>
                         
                         <div class="relative z-10">
                             <div class="mx-auto w-20 h-20 bg-gray-50 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-center mb-6">

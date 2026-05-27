@@ -9,9 +9,9 @@ defineProps({
 const getStatusColor = (status) => {
     switch (status) {
         case "applied":
-            return "bg-blue-100 text-blue-800";
+            return "bg-teal-100 text-teal-800";
         case "reviewed":
-            return "bg-purple-100 text-purple-800";
+            return "bg-emerald-100 text-emerald-800";
         case "shortlisted":
             return "bg-green-100 text-green-800";
         case "rejected":
@@ -66,7 +66,7 @@ const formatDate = (dateString) => {
                     <div class="overflow-x-auto">
                         <table class="w-full">
                             <thead
-                                class="bg-neutral-light border-b border-neutral-light"
+                                class="bg-gray-50 border-b border-gray-100"
                             >
                                 <tr>
                                     <th
@@ -100,34 +100,34 @@ const formatDate = (dateString) => {
                                 <tr
                                     v-for="application in applications.data"
                                     :key="application.id"
-                                    class="border-b border-neutral-light hover:bg-indigo-50 transition-colors cursor-pointer group"
+                                    class="border-b border-gray-100 hover:bg-emerald-50/50 transition-colors cursor-pointer group"
                                     @click="$inertia.visit(route('employer.applications.show', application.id))"
                                 >
-                                    <td class="px-6 py-4">
-                                        <p class="font-body font-semibold text-gray-900 group-hover:text-indigo-700 transition-colors">
+                                    <td class="px-6 py-5">
+                                        <p class="font-body font-semibold text-gray-900 group-hover:text-emerald-700 transition-colors">
                                             {{ application.candidate.name }}
                                         </p>
                                     </td>
-                                    <td class="px-6 py-4">
-                                        <p class="font-body text-neutral-stone">
+                                    <td class="px-6 py-5">
+                                        <p class="font-body text-gray-600 font-medium">
                                             {{ application.job.title }}
                                         </p>
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-5">
                                         <span
                                             :class="`px-3 py-1 rounded-full text-xs font-semibold capitalize ${getStatusColor(application.status)}`"
                                         >
                                             {{ application.status }}
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4">
-                                        <p class="font-body text-neutral-stone text-sm">
+                                    <td class="px-6 py-5">
+                                        <p class="font-body text-gray-500 text-sm font-medium">
                                             {{ formatDate(application.created_at) }}
                                         </p>
                                     </td>
-                                    <td class="px-6 py-4">
-                                        <span class="inline-flex items-center gap-1 text-indigo-600 group-hover:text-indigo-800 font-bold text-sm transition-colors">
-                                            View Details →
+                                    <td class="px-6 py-5">
+                                        <span class="inline-flex items-center justify-center px-4 py-2 bg-white border border-emerald-200 text-emerald-700 rounded-lg text-sm font-semibold group-hover:bg-emerald-600 group-hover:text-white group-hover:border-emerald-600 transition-all shadow-sm">
+                                            Review Application
                                         </span>
                                     </td>
                                 </tr>

@@ -60,7 +60,7 @@ defineProps({
                         </div>
 
                         <div class="flex items-center gap-3 md:pl-6">
-                            <Link :href="route('employer.jobs.edit', job.id)" class="font-body text-jobnode-sky hover:underline">
+                            <Link :href="route('employer.jobs.edit', job.id)" class="inline-flex items-center justify-center px-4 py-2 bg-emerald-50 text-emerald-700 rounded-lg text-sm font-semibold hover:bg-emerald-600 hover:text-white transition-all shadow-sm border border-emerald-100">
                                 Edit
                             </Link>
                         </div>
