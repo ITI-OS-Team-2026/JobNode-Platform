@@ -1,5 +1,5 @@
 <script setup>
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import EmployerLayout from "@/Layouts/EmployerLayout.vue";
 import { Head, Link } from "@inertiajs/vue3";
 
 defineProps({
@@ -33,7 +33,7 @@ const formatDate = (dateString) => {
 <template>
     <Head title="Applications" />
 
-    <AuthenticatedLayout>
+    <EmployerLayout>
         <template #header>
             <h2
                 class="font-display font-semibold text-xl text-gray-800 leading-tight"
@@ -175,5 +175,5 @@ const formatDate = (dateString) => {
                 </div>
             </div>
         </div>
-    </AuthenticatedLayout>
+    </EmployerLayout>
 </template>

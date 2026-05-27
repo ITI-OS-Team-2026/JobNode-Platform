@@ -1,5 +1,5 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import EmployerLayout from '@/Layouts/EmployerLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import { 
     BriefcaseIcon, 
@@ -119,7 +119,7 @@ const isEmptyState = computed(() => {
 <template>
     <Head title="Employer Analytics Workspace" />
 
-    <AuthenticatedLayout>
+    <EmployerLayout>
         <template #header>
             <div class="flex items-center justify-between">
                 <h2 class="font-display font-semibold text-xl text-gray-800 leading-tight">Analytics Workspace</h2>
@@ -375,5 +375,5 @@ const isEmptyState = computed(() => {
 
             </div>
         </div>
-    </AuthenticatedLayout>
+    </EmployerLayout>
 </template>
