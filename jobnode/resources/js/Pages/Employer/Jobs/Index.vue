@@ -1,5 +1,5 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import EmployerLayout from '@/Layouts/EmployerLayout.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
@@ -11,7 +11,7 @@ defineProps({
 <template>
     <Head title="My Listings" />
 
-    <AuthenticatedLayout>
+    <EmployerLayout>
         <template #header>
             <div class="flex items-center justify-between">
                 <h2 class="font-display font-semibold text-xl text-gray-800 leading-tight">My Job Listings</h2>
@@ -60,7 +60,7 @@ defineProps({
                         </div>
 
                         <div class="flex items-center gap-3 md:pl-6">
-                            <Link :href="route('employer.jobs.edit', job.id)" class="font-body text-jobnode-sky hover:underline">
+                            <Link :href="route('employer.jobs.edit', job.id)" class="inline-flex items-center justify-center px-4 py-2 bg-emerald-50 text-emerald-700 rounded-lg text-sm font-semibold hover:bg-emerald-600 hover:text-white transition-all shadow-sm border border-emerald-100">
                                 Edit
                             </Link>
                         </div>
@@ -70,5 +70,5 @@ defineProps({
 
             </div>
         </div>
-    </AuthenticatedLayout>
+    </EmployerLayout>
 </template>

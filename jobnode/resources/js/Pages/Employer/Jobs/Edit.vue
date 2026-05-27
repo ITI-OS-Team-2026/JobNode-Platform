@@ -1,5 +1,5 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import EmployerLayout from '@/Layouts/EmployerLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import DarkCard from '@/Components/DarkCard.vue';
@@ -55,7 +55,7 @@ const formatDate = (dateString) => {
 <template>
     <Head :title="'Edit: ' + job.title" />
 
-    <AuthenticatedLayout>
+    <EmployerLayout>
         <template #header>
             <h2 class="font-display font-semibold text-xl text-gray-800 leading-tight">Edit Role: {{ job.title }}</h2>
         </template>
@@ -162,5 +162,5 @@ const formatDate = (dateString) => {
             </DarkCard>
 
         </div>
-    </AuthenticatedLayout>
+    </EmployerLayout>
 </template>

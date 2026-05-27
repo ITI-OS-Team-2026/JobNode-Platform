@@ -46,7 +46,7 @@ Route::middleware(['auth', 'verified', 'role:employer'])
     ->prefix('employer')
     ->name('employer.')
     ->group(function () {
-        Route::inertia('/dashboard', 'Employer/Dashboard')->name('dashboard');
+        Route::get('/dashboard', \App\Http\Controllers\EmployerDashboardController::class)->name('dashboard');
         Route::inertia('/company', 'Employer/CompanyProfile')->name('company.profile');
         
         // Job Management Routes
