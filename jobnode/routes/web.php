@@ -25,10 +25,15 @@ Route::middleware(['auth', 'verified', 'role:candidate'])
     ->name('candidate.')
     ->group(function () {
         Route::inertia('/dashboard', 'Candidate/Dashboard')->name('dashboard');
-        Route::inertia('/profile', 'Candidate/Profile')->name('profile');
+        
+        // Profile Management Routes
+        Route::get('/profile', [\App\Http\Controllers\CandidateProfileController::class, 'show'])->name('profile');
+        Route::put('/profile', [\App\Http\Controllers\CandidateProfileController::class, 'update'])->name('profile.update');
+        Route::get('/profile/resume/download', [\App\Http\Controllers\CandidateProfileController::class, 'downloadResume'])->name('profile.resume.download');
+        
         Route::inertia('/applications', 'Candidate/Applications')->name('applications');
         
-        // Add this new route for handling submissions:
+        // Job Application Route
         Route::post('/jobs/{job}/apply', [\App\Http\Controllers\ApplicationController::class, 'store'])->name('jobs.apply');
     });
 
