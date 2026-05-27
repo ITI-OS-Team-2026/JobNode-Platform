@@ -74,7 +74,7 @@ class EmployerDashboardController extends Controller
         // 2. Job Performance
         $jobPerformance = $topPerformingJobs->map(function ($job) {
             return [
-                'title' => substr($job->title, 0, 15) . (strlen($job->title) > 15 ? '...' : ''),
+                'title' => $job->title,
                 'views' => $job->views_count,
             ];
         });

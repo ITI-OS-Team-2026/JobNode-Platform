@@ -103,11 +103,29 @@ const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-        legend: { display: false }
+        legend: { display: false },
+        tooltip: {
+            callbacks: {
+                title: function(context) {
+                    return context[0].label;
+                }
+            }
+        }
     },
     scales: {
         y: { beginAtZero: true, grid: { borderDash: [2, 4], color: '#f3f4f6' } },
-        x: { grid: { display: false } }
+        x: { 
+            grid: { display: false },
+            ticks: {
+                callback: function(value) {
+                    const label = this.getLabelForValue(value);
+                    if (label.length > 15) {
+                        return label.substring(0, 15) + '...';
+                    }
+                    return label;
+                }
+            }
+        }
     }
 };
 
