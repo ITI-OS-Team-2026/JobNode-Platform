@@ -8,6 +8,14 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
+
+const dashboardRoutes = {
+    candidate: 'candidate.dashboard',
+    employer: 'employer.dashboard',
+    admin: 'admin.dashboard',
+};
+
+const dashboardRouteName = (role) => dashboardRoutes[role] ?? 'home';
 </script>
 
 <template>
@@ -22,7 +30,7 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex">
                             <!-- Logo -->
                             <div class="flex shrink-0 items-center">
-                                <Link :href="route('dashboard')">
+                                <Link :href="route(dashboardRouteName($page.props.auth.user.role))">
                                     <ApplicationLogo
                                         class="block h-9 w-auto fill-current text-gray-800"
                                     />
