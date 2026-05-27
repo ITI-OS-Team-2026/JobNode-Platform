@@ -84,7 +84,7 @@ const revenueChartData = computed(() => ({
     datasets: [{
         label: 'Revenue ($)',
         data: props.charts.revenue_trend.map(i => i.total),
-        backgroundColor: '#6366f1',
+        backgroundColor: '#0ea5e9', // using sky-500 as a complimentary SaaS color for revenue, or we could use emerald
         borderRadius: 4,
     }]
 }));
@@ -94,7 +94,14 @@ const jobPerformanceChartData = computed(() => ({
     datasets: [{
         label: 'Views',
         data: props.charts.job_performance.map(i => i.views),
-        backgroundColor: '#f59e0b',
+        // Array of distinct teal/emerald shades so each job has a unique color
+        backgroundColor: [
+            '#0f766e', // teal-700
+            '#0d9488', // teal-600
+            '#14b8a6', // teal-500
+            '#2dd4bf', // teal-400
+            '#5eead4', // teal-300
+        ],
         borderRadius: 4,
     }]
 }));
