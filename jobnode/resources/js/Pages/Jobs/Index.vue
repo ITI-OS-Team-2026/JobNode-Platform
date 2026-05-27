@@ -1,12 +1,19 @@
 <script setup>
 import { ref, watch } from 'vue';
 import { Head, Link, router } from '@inertiajs/vue3';
-import HeroInput from '@/Components/HeroInput.vue';
 
 const props = defineProps({
     jobs: Object, // Note: It's an object now because it's paginated data
     filters: Object,
 });
+
+const dashboardRoutes = {
+    candidate: 'candidate.dashboard',
+    employer: 'employer.dashboard',
+    admin: 'admin.dashboard',
+};
+
+const dashboardRouteName = (role) => dashboardRoutes[role] ?? 'home';
 
 // Initialize reactive state with the values from the URL (if any exist)
 const search = ref(props.filters.search || '');
@@ -60,7 +67,7 @@ const clearFilters = () => {
                 
                 <div class="hidden md:flex gap-4">
                     <Link v-if="!$page.props.auth.user" :href="route('login')" class="text-white hover:text-jobnode-emerald transition">Log In</Link>
-                    <Link v-if="$page.props.auth.user" :href="route('dashboard')" class="text-jobnode-emerald hover:underline">Go to Dashboard</Link>
+                    <Link v-if="$page.props.auth.user" :href="route(dashboardRouteName($page.props.auth.user.role))" class="text-jobnode-emerald hover:underline">Go to Dashboard</Link>
                 </div>
             </div>
         </div>

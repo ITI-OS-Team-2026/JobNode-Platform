@@ -25,10 +25,15 @@ Route::middleware(['auth', 'verified', 'role:candidate'])
     ->name('candidate.')
     ->group(function () {
         Route::inertia('/dashboard', 'Candidate/Dashboard')->name('dashboard');
-        Route::inertia('/profile', 'Candidate/Profile')->name('profile');
+        
+        // Profile Management Routes
+        Route::get('/profile', [\App\Http\Controllers\CandidateProfileController::class, 'show'])->name('profile');
+        Route::put('/profile', [\App\Http\Controllers\CandidateProfileController::class, 'update'])->name('profile.update');
+        Route::get('/profile/resume/download', [\App\Http\Controllers\CandidateProfileController::class, 'downloadResume'])->name('profile.resume.download');
+        
         Route::inertia('/applications', 'Candidate/Applications')->name('applications');
         
-        // Add this new route for handling submissions:
+        // Job Application Route
         Route::post('/jobs/{job}/apply', [\App\Http\Controllers\ApplicationController::class, 'store'])->name('jobs.apply');
     });
 
@@ -51,6 +56,14 @@ Route::middleware(['auth', 'verified', 'role:employer'])
         Route::get('/jobs/{job}/edit', [\App\Http\Controllers\JobController::class, 'edit'])->name('jobs.edit');
         Route::put('/jobs/{job}', [\App\Http\Controllers\JobController::class, 'update'])->name('jobs.update');
         Route::post('/jobs/{job}/comments', [\App\Http\Controllers\JobCommentController::class, 'store'])->name('jobs.comments.store');
+        
+        // Application Management Routes
+        Route::get('/applications', [\App\Http\Controllers\EmployerApplicationController::class, 'index'])->name('applications.index');
+        Route::get('/applications/{application}', [\App\Http\Controllers\EmployerApplicationController::class, 'show'])->name('applications.show');
+        // Payments for unlocking applications
+        Route::post('/applications/{application}/payments', [\App\Http\Controllers\PaymentController::class, 'store'])->name('applications.payments.store');
+        // Resume download for unlocked candidates
+        Route::get('/applications/{application}/resume/download', [\App\Http\Controllers\EmployerResumeController::class, 'download'])->name('applications.resume.download');
     });
     
 /*
@@ -78,3 +91,8 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+// Kashier endpoints (webhook + redirects)
+Route::post('/payments/kashier/webhook', [\App\Http\Controllers\KashierController::class, 'webhook'])->name('payments.kashier.webhook');
+Route::get('/payments/kashier/success', [\App\Http\Controllers\KashierController::class, 'success'])->name('payments.kashier.success');
+Route::get('/payments/kashier/failure', [\App\Http\Controllers\KashierController::class, 'failure'])->name('payments.kashier.failure');

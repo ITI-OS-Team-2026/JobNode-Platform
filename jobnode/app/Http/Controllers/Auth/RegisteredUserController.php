@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
@@ -29,22 +30,15 @@ class RegisteredUserController extends Controller
      *
      * @throws ValidationException
      */
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
     public function store(Request $request): RedirectResponse
     {
-        // 1. Add 'role' to the validation rules
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role' => ['required', 'string', 'in:candidate,employer'],
+            'role' => ['required', 'string', Rule::in(User::REGISTRABLE_ROLES)],
         ]);
 
-        // 2. Pass the 'role' to the User::create array
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -56,14 +50,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        // 3. The dynamic redirect logic based on the newly created user's role
-        $role = $user->role;
-
-        return match($role) {
-            'employer' => redirect(route('employer.dashboard', absolute: false)),
-            'candidate' => redirect(route('candidate.dashboard', absolute: false)),
-            'admin' => redirect(route('admin.dashboard', absolute: false)),
-            default => redirect('/'),
-        };
+        return redirect($user->dashboardPath());
     }
 }
