@@ -60,6 +60,9 @@ const dashboardRouteName = (role) => dashboardRoutes[role] ?? 'home';
                                     <NavLink :href="route('employer.jobs.index')" :active="route().current('employer.jobs.*')">
                                         My Listings
                                     </NavLink>
+                                    <NavLink :href="route('employer.applications.index')" :active="route().current('employer.applications.*')">
+                                        Applications
+                                    </NavLink>
                                 </template>
 
                                 <template v-else-if="$page.props.auth.user.role === 'admin'">
@@ -189,6 +192,9 @@ const dashboardRouteName = (role) => dashboardRoutes[role] ?? 'home';
                             </ResponsiveNavLink>
                             <ResponsiveNavLink :href="route('employer.jobs.index')" :active="route().current('employer.jobs.*')">
                                 My Listings
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink :href="route('employer.applications.index')" :active="route().current('employer.applications.*')">
+                                Applications
                             </ResponsiveNavLink>
                         </template>
 
