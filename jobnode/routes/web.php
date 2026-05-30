@@ -76,7 +76,8 @@ Route::middleware(['auth', 'verified', 'role:admin'])
     ->name('admin.')
     ->group(function () {
         Route::inertia('/dashboard', 'Admin/Dashboard')->name('dashboard');
-        Route::inertia('/jobs/pending', 'Admin/Jobs/Pending')->name('jobs.pending');
+        Route::get('/jobs/pending', [\App\Http\Controllers\AdminJobController::class, 'index'])->name('jobs.pending');
+        Route::patch('/jobs/{job}/status', [\App\Http\Controllers\AdminJobController::class, 'update'])->name('jobs.status.update');
     });
 
 /*
