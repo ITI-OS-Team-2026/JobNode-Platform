@@ -31,7 +31,7 @@ Route::middleware(['auth', 'verified', 'role:candidate'])
         Route::put('/profile', [\App\Http\Controllers\CandidateProfileController::class, 'update'])->name('profile.update');
         Route::get('/profile/resume/download', [\App\Http\Controllers\CandidateProfileController::class, 'downloadResume'])->name('profile.resume.download');
         
-        Route::inertia('/applications', 'Candidate/Applications')->name('applications');
+        Route::get('/applications', [\App\Http\Controllers\ApplicationController::class, 'index'])->name('applications');
         
         // Job Application Route
         Route::post('/jobs/{job}/apply', [\App\Http\Controllers\ApplicationController::class, 'store'])->name('jobs.apply');

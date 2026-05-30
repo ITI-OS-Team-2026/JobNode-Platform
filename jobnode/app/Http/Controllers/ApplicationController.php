@@ -11,6 +11,21 @@ use Illuminate\Support\Facades\DB;
 class ApplicationController extends Controller
 {
     /**
+     * Display a listing of the candidate's applications.
+     */
+    public function index(Request $request)
+    {
+        $applications = Application::with('job.employer.company')
+            ->where('candidate_id', $request->user()->id)
+            ->latest()
+            ->get();
+
+        return \Inertia\Inertia::render('Candidate/Applications', [
+            'applications' => $applications
+        ]);
+    }
+
+    /**
      * Store a newly created application in storage.
      */
     public function store(Request $request, Job $job): RedirectResponse
