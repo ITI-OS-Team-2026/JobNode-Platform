@@ -1,5 +1,5 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import EmployerLayout from '@/Layouts/EmployerLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import { CheckCircleIcon } from '@heroicons/vue/24/solid';
 
@@ -14,7 +14,7 @@ defineProps({
 <template>
     <Head title="Payment Successful" />
 
-    <AuthenticatedLayout>
+    <EmployerLayout>
         <div class="py-12">
             <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -34,14 +34,14 @@ defineProps({
                         <Link
                             v-if="application_id"
                             :href="route('employer.applications.show', application_id)"
-                            class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
+                            class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition duration-150 ease-in-out"
                         >
                             View Candidate Details
                         </Link>
                         <Link
                             v-else
                             :href="route('employer.applications.index')"
-                            class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
+                            class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition duration-150 ease-in-out"
                         >
                             Back to Applications
                         </Link>
@@ -49,5 +49,5 @@ defineProps({
                 </div>
             </div>
         </div>
-    </AuthenticatedLayout>
+    </EmployerLayout>
 </template>

@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\CandidateProfile;
-use App\Http\Requests\UpdateCandidateProfileRequest;
-use Illuminate\Http\RedirectResponse;
+use App\Models\EmployerCandidateUnlock;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class CandidateProfileController extends Controller
 {
@@ -43,65 +43,81 @@ class CandidateProfileController extends Controller
     /**
      * Update the candidate profile.
      */
-    public function update(UpdateCandidateProfileRequest $request): RedirectResponse
+    public function update(Request $request): RedirectResponse
     {
+        $validated = $request->validate([
+            'title' => 'nullable|string|max:255',
+            'skills' => 'nullable|string',
+            'linkedin_url' => 'nullable|url|max:255',
+            'phone' => 'nullable|string|max:20',
+            'resume' => 'nullable|file|mimes:pdf|max:5120', // 5MB Max PDF
+        ]);
+
         $user = $request->user();
-        $validated = $request->validated();
+        $profile = $user->candidateProfile ?? new CandidateProfile(['user_id' => $user->id]);
 
-        // Get or create the candidate profile
-        $profile = $user->candidateProfile()->firstOrCreate(
-            ['user_id' => $user->id],
-            []
-        );
+        // Convert skills string back to JSON array
+        $skillsArray = $validated['skills'] 
+            ? array_map('trim', explode(',', $validated['skills'])) 
+            : null;
 
-        // Handle resume upload
+        $profile->fill([
+            'title' => $validated['title'],
+            'skills' => $skillsArray,
+            'linkedin_url' => $validated['linkedin_url'],
+            'phone' => $validated['phone'],
+        ]);
+
         if ($request->hasFile('resume')) {
-            // Delete old resume if it exists
-            if ($profile->resume_path && Storage::disk('local')->exists($profile->resume_path)) {
+            if ($profile->resume_path) {
                 Storage::disk('local')->delete($profile->resume_path);
             }
-
-            // Store new resume
-            $resumeFile = $request->file('resume');
-            $resumePath = $resumeFile->store(
-                'resumes/' . $user->id,
-                'local'
-            );
-
-            $validated['resume_path'] = $resumePath;
-            $validated['resume_original_filename'] = $resumeFile->getClientOriginalName();
-            $validated['resume_mime_type'] = $resumeFile->getMimeType();
-            $validated['resume_uploaded_at'] = now();
+            // Save to storage/app/resumes (NOT public)
+            $profile->resume_path = $request->file('resume')->store('resumes', 'local');
+            // Store original filename and time
+            $profile->resume_original_filename = $request->file('resume')->getClientOriginalName();
+            $profile->resume_uploaded_at = now();
         }
 
-        // Remove the resume file from validated data if it wasn't uploaded
-        unset($validated['resume']);
+        $profile->save();
 
-        // Update the profile
-        $profile->update($validated);
-
-        return back()->with('success', 'Profile updated successfully!');
+        return back()->with('success', 'Profile updated successfully.');
     }
 
     /**
-     * Download the candidate's resume.
+     * Download the candidate's resume securely.
      */
-    public function downloadResume(Request $request): ?object
+    public function downloadResume(Request $request, CandidateProfile $candidateProfile)
     {
         $user = $request->user();
-        $profile = $user->candidateProfile;
+        $canAccess = false;
 
-        if (!$profile || !$profile->resume_path) {
-            return back()->with('error', 'Resume not found.');
+        // 1. Owner can always access
+        if ($user->id === $candidateProfile->user_id) {
+            $canAccess = true;
+        } 
+        // 2. Admins can always access
+        elseif ($user->role === 'admin') {
+            $canAccess = true;
+        } 
+        // 3. Employers must have a valid unlock receipt
+        elseif ($user->role === 'employer') {
+            $hasUnlocked = EmployerCandidateUnlock::where('employer_id', $user->id)
+                ->where('candidate_id', $candidateProfile->user_id)
+                ->exists();
+            
+            if ($hasUnlocked) {
+                $canAccess = true;
+            }
         }
 
-        if (!Storage::disk('local')->exists($profile->resume_path)) {
-            return back()->with('error', 'Resume file not found.');
+        if (!$canAccess || !$candidateProfile->resume_path) {
+            abort(403, 'Unauthorized access or file not found.');
         }
 
         return Storage::disk('local')->download(
-            $profile->resume_path,
-            $profile->resume_original_filename
+            $candidateProfile->resume_path, 
+            $candidateProfile->resume_original_filename ?? "Resume_{$candidateProfile->user->name}.pdf"
         );
     }
 }

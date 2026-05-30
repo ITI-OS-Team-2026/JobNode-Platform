@@ -9,7 +9,12 @@ use Inertia\Inertia;
 | Public Routes (Guest Access)
 |--------------------------------------------------------------------------
 */
-Route::inertia('/', 'Welcome')->name('home');
+Route::get('/', function () {
+    return \Inertia\Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+    ]);
+})->name('home');
 
 Route::get('/jobs', [\App\Http\Controllers\PublicJobController::class, 'index'])->name('jobs.index');
 
@@ -24,14 +29,14 @@ Route::middleware(['auth', 'verified', 'role:candidate'])
     ->prefix('candidate')
     ->name('candidate.')
     ->group(function () {
-        Route::inertia('/dashboard', 'Candidate/Dashboard')->name('dashboard');
+        Route::get('/dashboard', \App\Http\Controllers\CandidateDashboardController::class)->name('dashboard');
         
         // Profile Management Routes
         Route::get('/profile', [\App\Http\Controllers\CandidateProfileController::class, 'show'])->name('profile');
-        Route::put('/profile', [\App\Http\Controllers\CandidateProfileController::class, 'update'])->name('profile.update');
-        Route::get('/profile/resume/download', [\App\Http\Controllers\CandidateProfileController::class, 'downloadResume'])->name('profile.resume.download');
+        Route::post('/profile/update', [\App\Http\Controllers\CandidateProfileController::class, 'update'])->name('profile.update');
         
-        Route::inertia('/applications', 'Candidate/Applications')->name('applications');
+        Route::get('/applications', [\App\Http\Controllers\ApplicationController::class, 'index'])->name('applications');
+        Route::post('/applications/{application}/cancel', [\App\Http\Controllers\ApplicationController::class, 'destroy'])->name('applications.cancel');
         
         // Job Application Route
         Route::post('/jobs/{job}/apply', [\App\Http\Controllers\ApplicationController::class, 'store'])->name('jobs.apply');
@@ -47,7 +52,12 @@ Route::middleware(['auth', 'verified', 'role:employer'])
     ->name('employer.')
     ->group(function () {
         Route::get('/dashboard', \App\Http\Controllers\EmployerDashboardController::class)->name('dashboard');
-        Route::inertia('/company', 'Employer/CompanyProfile')->name('company.profile');
+        Route::get('/company', function (\Illuminate\Http\Request $request) {
+            return \Inertia\Inertia::render('Employer/CompanyProfile', [
+                'company' => $request->user()->company
+            ]);
+        })->name('company.profile');
+        Route::post('/company/update', [\App\Http\Controllers\CompanyProfileController::class, 'update'])->name('company.profile.update');
         
         // Job Management Routes
         Route::get('/jobs', [\App\Http\Controllers\JobController::class, 'index'])->name('jobs.index');
@@ -75,8 +85,9 @@ Route::middleware(['auth', 'verified', 'role:admin'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
-        Route::inertia('/dashboard', 'Admin/Dashboard')->name('dashboard');
-        Route::inertia('/jobs/pending', 'Admin/Jobs/Pending')->name('jobs.pending');
+        Route::get('/dashboard', \App\Http\Controllers\AdminDashboardController::class)->name('dashboard');
+        Route::get('/jobs/pending', [\App\Http\Controllers\AdminJobController::class, 'index'])->name('jobs.pending');
+        Route::patch('/jobs/{job}/status', [\App\Http\Controllers\AdminJobController::class, 'update'])->name('jobs.status.update');
     });
 
 /*
@@ -88,6 +99,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/account', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/account', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/account', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/resumes/{candidateProfile}/download', [\App\Http\Controllers\CandidateProfileController::class, 'downloadResume'])->name('resumes.download');
 });
 
 require __DIR__.'/auth.php';
