@@ -27,6 +27,7 @@ const navItems = [
     { label: 'Dashboard', route: 'employer.dashboard', pattern: 'employer.dashboard', icon: ChartBarSquareIcon },
     { label: 'My Listings', route: 'employer.jobs.index', pattern: 'employer.jobs.*', icon: BriefcaseIcon },
     { label: 'Applications', route: 'employer.applications.index', pattern: 'employer.applications.*', icon: DocumentTextIcon },
+    { label: 'Company Settings', route: 'employer.company.profile', pattern: 'employer.company.*', icon: Cog6ToothIcon },
 ];
 
 const isActive = (pattern) => route().current(pattern);
