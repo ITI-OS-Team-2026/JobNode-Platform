@@ -42,6 +42,9 @@ const dashboardRouteName = (role) => dashboardRoutes[role] ?? 'home';
                                 class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex"
                             >
                                 <template v-if="$page.props.auth.user.role === 'candidate'">
+                                    <NavLink :href="route('jobs.index')" :active="route().current('jobs.*')">
+                                        Browse Jobs
+                                    </NavLink>
                                     <NavLink :href="route('candidate.dashboard')" :active="route().current('candidate.dashboard')">
                                         Dashboard
                                     </NavLink>
@@ -175,6 +178,9 @@ const dashboardRouteName = (role) => dashboardRoutes[role] ?? 'home';
                 >
                     <div class="space-y-1 pb-3 pt-2">
                         <template v-if="$page.props.auth.user.role === 'candidate'">
+                            <ResponsiveNavLink :href="route('jobs.index')" :active="route().current('jobs.*')">
+                                Browse Jobs
+                            </ResponsiveNavLink>
                             <ResponsiveNavLink :href="route('candidate.dashboard')" :active="route().current('candidate.dashboard')">
                                 Dashboard
                             </ResponsiveNavLink>
