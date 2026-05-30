@@ -29,13 +29,14 @@ Route::middleware(['auth', 'verified', 'role:candidate'])
     ->prefix('candidate')
     ->name('candidate.')
     ->group(function () {
-        Route::inertia('/dashboard', 'Candidate/Dashboard')->name('dashboard');
+        Route::get('/dashboard', \App\Http\Controllers\CandidateDashboardController::class)->name('dashboard');
         
         // Profile Management Routes
         Route::get('/profile', [\App\Http\Controllers\CandidateProfileController::class, 'show'])->name('profile');
         Route::post('/profile/update', [\App\Http\Controllers\CandidateProfileController::class, 'update'])->name('profile.update');
         
         Route::get('/applications', [\App\Http\Controllers\ApplicationController::class, 'index'])->name('applications');
+        Route::post('/applications/{application}/cancel', [\App\Http\Controllers\ApplicationController::class, 'destroy'])->name('applications.cancel');
         
         // Job Application Route
         Route::post('/jobs/{job}/apply', [\App\Http\Controllers\ApplicationController::class, 'store'])->name('jobs.apply');
@@ -84,7 +85,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
-        Route::inertia('/dashboard', 'Admin/Dashboard')->name('dashboard');
+        Route::get('/dashboard', \App\Http\Controllers\AdminDashboardController::class)->name('dashboard');
         Route::get('/jobs/pending', [\App\Http\Controllers\AdminJobController::class, 'index'])->name('jobs.pending');
         Route::patch('/jobs/{job}/status', [\App\Http\Controllers\AdminJobController::class, 'update'])->name('jobs.status.update');
     });

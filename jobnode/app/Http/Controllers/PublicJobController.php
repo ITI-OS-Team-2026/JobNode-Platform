@@ -73,8 +73,11 @@ class PublicJobController extends Controller
         return Inertia::render('Jobs/Show', [
             'job' => $job,
             // Pass whether the current user has already applied to this job
-            'hasApplied' => auth()->user() 
-                ? \App\Models\Application::where('job_id', $job->id)->where('candidate_id', auth()->id())->exists()
+            'hasApplied' => auth()->user()
+                ? \App\Models\Application::where('job_id', $job->id)
+                    ->where('candidate_id', auth()->id())
+                    ->where('status', '!=', 'cancelled')
+                    ->exists()
                 : false,
         ]);
     }
